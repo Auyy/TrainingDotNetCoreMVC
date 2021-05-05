@@ -1,0 +1,58 @@
+@model IEnumerable<TrainingDotNetCoreMVC.Models.Movie>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Movie Index</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Nmae)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.img)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.show)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.type)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.time)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nmae)
+            </td>
+            <td>
+                <img src="~/images/@item.img" asp-append-version="true"/>
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.show)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.type)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.time)
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
