@@ -77,7 +77,7 @@ namespace MVCtext.Controllers
                 string wwwRootPath = _hostEnvironment.WebRootPath;
                 string fileName = Path.GetFileNameWithoutExtension(movie.ImageFile.FileName);
                 string extension = Path.GetExtension(movie.ImageFile.FileName);
-                movie.ImageName = fileName = fileName + DateTime.Now.ToString("yymmssfff") + extension;
+                movie.ImageName = fileName = fileName + extension;
                 string path = Path.Combine(wwwRootPath + "/Image/", fileName);
                 using (var fileStream = new FileStream(path, FileMode.Create))
                 {
@@ -125,7 +125,7 @@ namespace MVCtext.Controllers
                 string wwwRootPath = _hostEnvironment.WebRootPath;
                 string fileName = Path.GetFileNameWithoutExtension(movie.ImageFile.FileName);
                 string extension = Path.GetExtension(movie.ImageFile.FileName);
-                movie.ImageName = fileName = fileName + DateTime.Now.ToString("yymmssfff") + extension;
+                movie.ImageName = fileName = fileName + extension;
                 string path = Path.Combine(wwwRootPath + "/Image/", fileName);
                 using (var fileStream = new FileStream(path, FileMode.Create))
                 {
