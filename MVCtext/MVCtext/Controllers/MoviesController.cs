@@ -63,17 +63,16 @@ namespace MVCtext.Controllers
         {
             return View();
         }
-
-        // POST: Movies/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
+       
+// POST: Movies/Create
+// To protect from overposting attacks, enable the specific properties you want to bind to.
+// For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+[HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Name,ImageFile,show,type,time")] Movie movie)
         {
-            if (ModelState.IsValid)
-            {
-                //Save image to wwwroot/image
+    if (ModelState.IsValid)
+    {
                 string wwwRootPath = _hostEnvironment.WebRootPath;
                 string fileName = Path.GetFileNameWithoutExtension(movie.ImageFile.FileName);
                 string extension = Path.GetExtension(movie.ImageFile.FileName);
@@ -83,11 +82,19 @@ namespace MVCtext.Controllers
                 {
                     await movie.ImageFile.CopyToAsync(fileStream);
                 }
-                //Insert record
-                _context.Add(movie);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
+
+                if (_context.Movie.Any(ac => ac.Name.Equals(movie.Name)))
+                {
+                  ModelState.AddModelError("txtName", "Name already exists.");
+                }
+                else
+                {
+                     //Insert record
+                 _context.Add(movie);
+                 await _context.SaveChangesAsync();
+                 return RedirectToAction(nameof(Index));
+                 }
+          }
             return View(movie);
         }
 
@@ -132,6 +139,11 @@ namespace MVCtext.Controllers
                     await movie.ImageFile.CopyToAsync(fileStream);
                 }
 
+                if (_context.Movie.Any(ac => ac.Name.Equals(movie.Name)))
+                {
+                    ModelState.AddModelError("txtName", "Name already exists.");
+                }
+                else { 
                 try
                 {
                     _context.Update(movie);
@@ -149,6 +161,7 @@ namespace MVCtext.Controllers
                     }
                 }
                 return RedirectToAction(nameof(Index));
+             }
             }
             return View(movie);
         }

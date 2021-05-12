@@ -1,13 +1,16 @@
 ﻿using System;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Net.Http;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 
 namespace MVCtext.Models
 {
     public class Movie
     {
         public int Id { get; set; }
+
         public string Name { get; set; }
 
         [Column(TypeName = "nvarchar(100)")]
