@@ -76,7 +76,7 @@ namespace MVCtext.Controllers
                 string wwwRootPath = _hostEnvironment.WebRootPath;
                 string fileName = Path.GetFileNameWithoutExtension(movie.ImageFile.FileName);
                 string extension = Path.GetExtension(movie.ImageFile.FileName);
-                movie.ImageName = fileName = fileName + extension;
+                movie.ImageName = fileName = fileName + DateTime.Now.ToString("yymmssfff") + extension;
                 string path = Path.Combine(wwwRootPath + "/Image/", fileName);
                 using (var fileStream = new FileStream(path, FileMode.Create))
                 {
@@ -86,6 +86,7 @@ namespace MVCtext.Controllers
                 if (_context.Movie.Any(ac => ac.Name.Equals(movie.Name)))
                 {
                   ModelState.AddModelError("txtName", "Name already exists.");
+                    
                 }
                 else
                 {
@@ -128,11 +129,10 @@ namespace MVCtext.Controllers
 
             if (ModelState.IsValid)
             {
-
                 string wwwRootPath = _hostEnvironment.WebRootPath;
-                string fileName = Path.GetFileNameWithoutExtension(movie.ImageFile.FileName);
+                string fileName = Path.GetFileName(movie.ImageFile.FileName);
                 string extension = Path.GetExtension(movie.ImageFile.FileName);
-                movie.ImageName = fileName = fileName + extension;
+                movie.ImageName = fileName = fileName + DateTime.Now.ToString("yymmssfff") + extension;
                 string path = Path.Combine(wwwRootPath + "/Image/", fileName);
                 using (var fileStream = new FileStream(path, FileMode.Create))
                 {
@@ -141,7 +141,7 @@ namespace MVCtext.Controllers
 
                 if (_context.Movie.Any(ac => ac.Name.Equals(movie.Name)))
                 {
-                    ModelState.AddModelError("txtName", "Name already exists.");
+                    ModelState.AddModelError("Name", "Name already exists.");
                 }
                 else { 
                 try
