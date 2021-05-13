@@ -85,7 +85,7 @@ namespace MVCtext.Controllers
 
                 if (_context.Movie.Any(ac => ac.Name.Equals(movie.Name)))
                 {
-                  ModelState.AddModelError("txtName", "Name already exists.");
+                  ModelState.AddModelError("Name", "Name already exists.");
                     
                 }
                 else
@@ -141,7 +141,7 @@ namespace MVCtext.Controllers
 
                 if (_context.Movie.Any(ac => ac.Name.Equals(movie.Name)))
                 {
-                    ModelState.AddModelError("Name", "Name already exists.");
+                    ModelState.AddModelError("txtName", "Name already exists.");
                 }
                 else { 
                 try
