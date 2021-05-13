@@ -1,31 +1,30 @@
 @model IEnumerable<MVCtext.Models.Movie>
 
 @{
-    ViewData["Title"] = "Movie Index";
+    ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<h1>Movies Index</h1>
 
 <p>
     <a asp-action="Create">Create New</a>
 </p>
+
 <form asp-controller="Movies" asp-action="Index">
     <p>
         Title: <input type="text" name="SearchString" />
         <input type="submit" value="Filter" />
     </p>
 </form>
+
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Id)
-            </th>
-            <th>
                 @Html.DisplayNameFor(model => model.Name)
             </th>
             <th>
-                image
+                Image
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.show)
@@ -42,9 +41,6 @@
     <tbody>
 @foreach (var item in Model) {
         <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Id)
-            </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Name)
             </td>

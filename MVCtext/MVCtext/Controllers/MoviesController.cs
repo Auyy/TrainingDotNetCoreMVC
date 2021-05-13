@@ -17,11 +17,11 @@ namespace MVCtext.Controllers
         private readonly MvcMovieContext _context;
         private readonly IWebHostEnvironment _hostEnvironment;
 
-        public MoviesController(MvcMovieContext context, IWebHostEnvironment hostEnvironment)
+
+        public MoviesController(MvcMovieContext context , IWebHostEnvironment hostEnvironment)
         {
             _context = context;
-            this._hostEnvironment = hostEnvironment;
-
+            _hostEnvironment = hostEnvironment;
         }
 
         // GET: Movies
@@ -37,8 +37,6 @@ namespace MVCtext.Controllers
 
             return View(await movies.ToListAsync());
         }
-
-       
 
         // GET: Movies/Details/5
         public async Task<IActionResult> Details(int? id)
@@ -63,16 +61,17 @@ namespace MVCtext.Controllers
         {
             return View();
         }
-       
-// POST: Movies/Create
-// To protect from overposting attacks, enable the specific properties you want to bind to.
-// For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-[HttpPost]
+
+        // POST: Movies/Create
+        // To protect from overposting attacks, enable the specific properties you want to bind to.
+        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Name,ImageFile,show,type,time")] Movie movie)
         {
-    if (ModelState.IsValid)
-    {
+            if (ModelState.IsValid)
+            {
+                //Save image to wwwroot/image
                 string wwwRootPath = _hostEnvironment.WebRootPath;
                 string fileName = Path.GetFileNameWithoutExtension(movie.ImageFile.FileName);
                 string extension = Path.GetExtension(movie.ImageFile.FileName);
@@ -82,20 +81,19 @@ namespace MVCtext.Controllers
                 {
                     await movie.ImageFile.CopyToAsync(fileStream);
                 }
-
                 if (_context.Movie.Any(ac => ac.Name.Equals(movie.Name)))
                 {
-                  ModelState.AddModelError("Name", "Name already exists.");
-                    
+                    ModelState.AddModelError("Name", "Name already exists.");
+
                 }
                 else
                 {
-                     //Insert record
-                 _context.Add(movie);
-                 await _context.SaveChangesAsync();
-                 return RedirectToAction(nameof(Index));
-                 }
-          }
+                    //Insert record
+                    _context.Add(movie);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
+                }
+            }
             return View(movie);
         }
 
@@ -120,7 +118,7 @@ namespace MVCtext.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,ImageFile,ImageName,show,type,time")] Movie movie)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,ImageName,ImageFile,show,type,time")] Movie movie)
         {
             if (id != movie.Id)
             {
@@ -129,40 +127,48 @@ namespace MVCtext.Controllers
 
             if (ModelState.IsValid)
             {
-                string wwwRootPath = _hostEnvironment.WebRootPath;
-                string fileName = Path.GetFileName(movie.ImageFile.FileName);
-                string extension = Path.GetExtension(movie.ImageFile.FileName);
-                movie.ImageName = fileName = fileName + DateTime.Now.ToString("yymmssfff") + extension;
-                string path = Path.Combine(wwwRootPath + "/Image/", fileName);
-                using (var fileStream = new FileStream(path, FileMode.Create))
+                // ถ้า รูปมีการใส่ ค่า ก็ให้ save
+                if (movie.ImageFile != null)
                 {
-                    await movie.ImageFile.CopyToAsync(fileStream);
-                }
+                    //Save image to wwwroot/image
+                    string wwwRootPath = _hostEnvironment.WebRootPath;
+                    string fileName = Path.GetFileNameWithoutExtension(movie.ImageFile.FileName);
+                    string extension = Path.GetExtension(movie.ImageFile.FileName);
+                    movie.ImageName = fileName = fileName + DateTime.Now.ToString("yymmssfff") + extension;
+                    string path = Path.Combine(wwwRootPath + "/Image/", fileName);
+                    using (var fileStream = new FileStream(path, FileMode.Create))
+                    {
+                        await movie.ImageFile.CopyToAsync(fileStream);
+                    }
+                }//เครื่องปิด if (movie.ImageFile != null)
 
-                if (_context.Movie.Any(ac => ac.Name.Equals(movie.Name)))
-                {
-                    ModelState.AddModelError("txtName", "Name already exists.");
-                }
-                else { 
-                try
-                {
-                    _context.Update(movie);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!MovieExists(movie.Id))
+                 if (_context.Movie.Any(ac => ac.Name.Equals(movie.Name)))
                     {
-                        return NotFound();
+                        ModelState.AddModelError("Name", "Name already exists.");
                     }
-                    else
+
+                else
+                {
+                    try
                     {
-                        throw;
+                        _context.Update(movie);
+                        await _context.SaveChangesAsync();
                     }
+                    catch (DbUpdateConcurrencyException)
+                    {
+                        if (!MovieExists(movie.Id))
+                        {
+                            return NotFound();
+                        }
+                        else
+                        {
+                            throw;
+                        }
+                    }
+                    return RedirectToAction(nameof(Index));
                 }
-                return RedirectToAction(nameof(Index));
-             }
-            }
+                }
+            
             return View(movie);
         }
 
@@ -189,12 +195,14 @@ namespace MVCtext.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var movie = await _context.Movie.FindAsync(id);
+            var Mimg = await _context.Movie.FindAsync(id);
+
             //delete image from wwwroot/image
-            var imagePath = Path.Combine(_hostEnvironment.WebRootPath, "image", movie.ImageName);
+            var imagePath = Path.Combine(_hostEnvironment.WebRootPath, "image", Mimg.ImageName);
             if (System.IO.File.Exists(imagePath))
                 System.IO.File.Delete(imagePath);
-
+            //delete the record
+            var movie = await _context.Movie.FindAsync(id);
             _context.Movie.Remove(movie);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));

@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "/Users/tangkwa/Desktop/text/MVCtext/MVCtext/MVCtext.csproj": {}
+    "/Users/tangkwa/Desktop/TrainingDotNetCoreMVC/MVCtext/MVCtext/MVCtext.csproj": {}
   },
   "projects": {
-    "/Users/tangkwa/Desktop/text/MVCtext/MVCtext/MVCtext.csproj": {
+    "/Users/tangkwa/Desktop/TrainingDotNetCoreMVC/MVCtext/MVCtext/MVCtext.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/tangkwa/Desktop/text/MVCtext/MVCtext/MVCtext.csproj",
+        "projectUniqueName": "/Users/tangkwa/Desktop/TrainingDotNetCoreMVC/MVCtext/MVCtext/MVCtext.csproj",
         "projectName": "MVCtext",
-        "projectPath": "/Users/tangkwa/Desktop/text/MVCtext/MVCtext/MVCtext.csproj",
+        "projectPath": "/Users/tangkwa/Desktop/TrainingDotNetCoreMVC/MVCtext/MVCtext/MVCtext.csproj",
         "packagesPath": "/Users/tangkwa/.nuget/packages/",
-        "outputPath": "/Users/tangkwa/Desktop/text/MVCtext/MVCtext/obj/",
+        "outputPath": "/Users/tangkwa/Desktop/TrainingDotNetCoreMVC/MVCtext/MVCtext/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/Users/tangkwa/.config/NuGet/NuGet.Config"
@@ -40,27 +40,27 @@
           "dependencies": {
             "Microsoft.EntityFrameworkCore": {
               "target": "Package",
-              "version": "[5.0.5, )"
+              "version": "[5.0.6, )"
             },
             "Microsoft.EntityFrameworkCore.Design": {
               "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
               "suppressParent": "All",
               "target": "Package",
-              "version": "[5.0.5, )"
+              "version": "[5.0.6, )"
             },
             "Microsoft.EntityFrameworkCore.SqlServer": {
               "target": "Package",
-              "version": "[5.0.5, )"
+              "version": "[5.0.6, )"
             },
             "Microsoft.EntityFrameworkCore.Sqlite": {
               "target": "Package",
-              "version": "[5.0.5, )"
+              "version": "[5.0.6, )"
             },
             "Microsoft.EntityFrameworkCore.Tools": {
               "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
               "suppressParent": "All",
               "target": "Package",
-              "version": "[5.0.5, )"
+              "version": "[5.0.6, )"
             },
             "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
               "target": "Package",

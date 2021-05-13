@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace MVCtext.Migrations
 {
@@ -13,10 +14,10 @@ namespace MVCtext.Migrations
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     Name = table.Column<string>(type: "TEXT", nullable: true),
-                    ImageName = table.Column<string>(type: "nvarchar(100)", nullable: true),
-                    show = table.Column<string>(type: "TEXT", nullable: true),
+                    ImageName = table.Column<string>(type: "TEXT", nullable: true),
+                    show = table.Column<DateTime>(type: "TEXT", nullable: false),
                     type = table.Column<string>(type: "TEXT", nullable: true),
-                    time = table.Column<string>(type: "TEXT", nullable: true)
+                    time = table.Column<DateTime>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {

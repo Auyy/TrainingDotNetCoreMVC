@@ -1,9 +1,8 @@
 ﻿using System;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Net.Http;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
 
 namespace MVCtext.Models
 {
@@ -13,16 +12,18 @@ namespace MVCtext.Models
 
         public string Name { get; set; }
 
-        [Column(TypeName = "nvarchar(100)")]
-        [DisplayName("Image Name")]
         public string ImageName { get; set; }
 
         [NotMapped]
         [DisplayName("Upload Image")]
         public IFormFile ImageFile { get; set; }
 
-        public string show { get; set; }
+        [DataType(DataType.Date)]
+        public DateTime show { get; set; }
         public string type { get; set; }
-        public string time { get; set; }
+
+        [DataType(DataType.Time)]
+        public DateTime time { get; set; }
     }
+
 }
