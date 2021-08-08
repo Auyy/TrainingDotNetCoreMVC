@@ -1,10 +1,13 @@
 ﻿<Properties StartupConfiguration="{BABC0D2E-6172-430D-BED1-58614A53A6A9}|Default">
   <MonoDevelop.Ide.ItemProperties.MVCtext PreferredExecutionTarget="/Applications/Google Chrome.app" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="MVCtext/Views/Movies/Index.cshtml">
+  <MonoDevelop.Ide.Workbench ActiveDocument="MVCtext/Views/Shared/_Layout.cshtml">
     <Files>
-      <File FileName="MVCtext/Views/Shared/_Layout.cshtml" Line="12" Column="85" />
-      <File FileName="MVCtext/Views/Movies/Index.cshtml" Line="7" Column="12" />
-      <File FileName="MVCtext/Views/Home/Index.cshtml" />
+      <File FileName="MVCtext/Views/Movies/Index.cshtml" Line="51" Column="19" />
+      <File FileName="MVCtext/Controllers/MoviesController.cs" Line="170" Column="18" />
+      <File FileName="MVCtext/Models/Movie.cs" />
+      <File FileName="MVCtext/Views/Movies/Create.cshtml" />
+      <File FileName="MVCtext/Views/Movies/Edit.cshtml" />
+      <File FileName="MVCtext/Views/Shared/_Layout.cshtml" Line="34" Column="14" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
@@ -15,10 +18,10 @@
               <Node name="Models" expanded="True" />
               <Node name="Views" expanded="True">
                 <Node name="Home" expanded="True" />
-                <Node name="Movies" expanded="True">
-                  <Node name="Index.cshtml" selected="True" />
+                <Node name="Movies" expanded="True" />
+                <Node name="Shared" expanded="True">
+                  <Node name="_Layout.cshtml" selected="True" />
                 </Node>
-                <Node name="Shared" expanded="True" />
               </Node>
               <Node name="wwwroot" expanded="True" />
             </Node>

@@ -81,10 +81,10 @@ namespace MVCtext.Controllers
                 {
                     await movie.ImageFile.CopyToAsync(fileStream);
                 }
+
                 if (_context.Movie.Any(ac => ac.Name.Equals(movie.Name)))
                 {
                     ModelState.AddModelError("Name", "Name already exists.");
-
                 }
                 else
                 {
@@ -118,8 +118,9 @@ namespace MVCtext.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,ImageName,ImageFile,show,type,time")] Movie movie)
+        public async Task<IActionResult> Edit(int id, string name ,[Bind("Id,Name,ImageName,ImageFile,show,type,time")] Movie movie)
         {
+
             if (id != movie.Id)
             {
                 return NotFound();
@@ -142,33 +143,35 @@ namespace MVCtext.Controllers
                     }
                 }//เครื่องปิด if (movie.ImageFile != null)
 
-                 if (_context.Movie.Any(ac => ac.Name.Equals(movie.Name)))
-                    {
-                        ModelState.AddModelError("Name", "Name already exists.");
-                    }
-
-                else
+               
+                //if (_context.Movie.Any(ac => ac.Name.Equals(movie.Name)))
+                //{
+                //    ModelState.AddModelError("Name", "Name already exists in database.");
+                //} // ชื่อไม่ซำ้
+                //else
+                //{
+                try
                 {
-                    try
+                    _context.Update(movie); // มีการอัป
+                    await _context.SaveChangesAsync(); // save
+
+                } // try
+
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!MovieExists(movie.Id))
                     {
-                        _context.Update(movie);
-                        await _context.SaveChangesAsync();
+                        return NotFound();
                     }
-                    catch (DbUpdateConcurrencyException)
+                    else
                     {
-                        if (!MovieExists(movie.Id))
-                        {
-                            return NotFound();
-                        }
-                        else
-                        {
-                            throw;
-                        }
+                        throw;
                     }
-                    return RedirectToAction(nameof(Index));
                 }
-                }
-            
+                return RedirectToAction(nameof(Index));
+            //}
+
+        }
             return View(movie);
         }
 

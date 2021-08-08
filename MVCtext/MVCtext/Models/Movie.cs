@@ -24,6 +24,8 @@ namespace MVCtext.Models
 
         [DataType(DataType.Time)]
         public DateTime time { get; set; }
+
+      
     }
 
 }
